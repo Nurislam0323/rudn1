@@ -1,0 +1,324 @@
+---
+## Author
+author:
+  name: Закиров Нурислам
+  email: 1132236040@rudn.ru
+  affiliation:
+    - name: Российский университет дружбы народов
+      country: Российская Федерация
+      city: Москва
+## Title
+title: "Лабораторная работа №1"
+subtitle: "Работа с git"
+license: CC BY
+date: today
+date-format: "YYYY-MM-DD"
+---
+
+# Информация
+
+## Докладчик
+
+:::::::::::::: {.columns align=center}
+::: {.column width="70%"}
+
+  * Закиров Нурислам
+  * студент
+  * Российский университет дружбы народов им. П. Лумумбы
+  * [1132236040@rudn.ru](mailto:1132236040@rudn.ru)
+
+:::
+::: {.column width="30%"}
+
+
+:::
+::::::::::::::
+
+# Вводная часть
+
+## Актуальность
+
+::: {.incremental}
+- Важно освоить современные инструменты разработки
+- Git — стандарт индустрии для управления версиями
+- GPG-подпись обеспечивает доверие к коммитам
+- DrWatson упрощает организацию научных проектов на Julia
+:::
+
+## Объект и предмет исследования
+
+::: {.incremental}
+- Система управления версиями Git
+- Инструменты авторизации GitHub CLI
+- Криптографические ключи SSH и GPG
+- Пакет DrWatson для Julia
+:::
+
+## Цели и задачи
+
+::: {.incremental}
+- Настроить git и gh для работы с GitHub
+- Сгенерировать и настроить SSH и GPG ключи
+- Создать проект DrWatson с необходимыми пакетами
+- Выполнить скрипт экспоненциального роста
+:::
+
+## Материалы и методы
+
+::: {.incremental}
+- Система контроля версий Git
+- Утилита GitHub CLI (`gh`)
+- GPG для криптографической подписи
+- Julia с пакетом DrWatson
+- Формат Markdown для отчётности
+:::
+
+# Основная часть
+
+## Цель работы
+
+::: {.incremental}
+- Приобретение практических навыков работы с системой управления версиями Git
+- Настройка авторизации в GitHub через gh
+- Генерация SSH и GPG ключей
+- Создание проекта на Julia с использованием пакета DrWatson
+:::
+
+## Задание
+
+::: {.incremental}
+1. Выполнить настройку git и gh
+2. Сгенерировать SSH и GPG ключи
+3. Добавить ключи в GitHub и gitverse
+4. Настроить автоматическую подпись коммитов
+5. Создать проект DrWatson и установить необходимые пакеты
+6. Выполнить скрипты экспоненциального роста
+7. Сгенерировать производные форматы (Quarto, Jupyter)
+:::
+
+## Теоретическое введение
+
+::: {.incremental}
+- **Git** — распределённая система управления версиями
+  - Создана Линусом Торвальдсом в 2005 году
+  - Для управления разработкой ядра Linux
+
+- **GitHub** — веб-хостинг для IT-проектов на базе Git
+
+- **DrWatson** — пакет для Julia для структурирования проектов
+  - Принципы воспроизводимых исследований
+  - Стандартная структура каталогов
+:::
+
+# Выполнение работы
+
+## Часть 1. Настройка git и gh
+
+### Установка пакетов
+
+```bash
+sudo apt install git -y
+sudo apt install gh -y
+```
+
+![Установка git и gh](image/1.PNG){width=70%}
+
+### Базовая настройка git
+
+```bash
+git config --global user.name "Закиров Нурислам Дамирович"
+git config --global user.email "1132236040@rudn.ru"
+git config --global core.quotepath false
+git config --global init.defaultBranch master
+git config --global core.safecrlf warn
+```
+
+![Базовая настройка git](image/2.PNG){width=70%}
+
+### Авторизация в GitHub
+
+```bash
+gh auth login
+```
+
+- Выбран GitHub.com и SSH-протокол
+- Введён одноразовый код в браузере
+
+![Авторизация в GitHub](image/3.PNG){width=70%}
+
+## Генерация SSH-ключа
+
+```bash
+ssh-keygen -t ed25519 -C "1132236040@rudn.ru"
+ssh-add ~/.ssh/id_ed25519
+```
+
+![Генерация SSH-ключа](image/4.PNG){width=70%}
+
+## Добавление SSH-ключа
+
+### В gitverse
+
+- Скопировать `~/.ssh/id_ed25519.pub`
+- Добавить в gitverse → Мой профиль → «Создать ключ +»
+
+![Добавление SSH-ключа в gitverse](image/5.PNG){width=70%}
+
+### В GitHub
+
+- GitHub → Settings → SSH and GPG keys → New SSH key
+
+![Добавление SSH-ключа в GitHub](image/6.PNG){width=70%}
+
+## Генерация GPG-ключа
+
+```bash
+gpg --full-generate-key
+```
+
+Параметры:
+- Тип: 1 (RSA and RSA)
+- Размер: 4096
+- Срок действия: 0 (бессрочный)
+
+![Генерация GPG-ключа](image/7.PNG){width=70%}
+
+## Просмотр GPG-ключей
+
+```bash
+gpg --list-secret-keys --keyid-format long
+```
+
+![Просмотр списка GPG-ключей](image/8.PNG){width=70%}
+
+## Добавление GPG-ключа в GitHub
+
+```bash
+gpg --armor --export <ID_КЛЮЧА>
+```
+
+- GitHub → Settings → SSH and GPG keys → New GPG key
+
+![Добавление GPG-ключа в GitHub](image/9.PNG){width=70%}
+
+## Настройка подписи коммитов
+
+```bash
+git config --global user.signingkey <ID_КЛЮЧА>
+git config --global commit.gpgsign true
+git config --global gpg.program $(which gpg)
+```
+
+![Настройка подписи коммитов](image/10.PNG){width=70%}
+
+## Часть 2. Создание проекта DrWatson
+
+### Запуск Julia
+
+```bash
+cd ~/work/study/2026-1/.../labs/lab01
+julia
+```
+
+![Запуск Julia](image/12.PNG){width=70%}
+
+### Установка DrWatson
+
+```julia
+using Pkg
+Pkg.add("DrWatson")
+```
+
+![Установка DrWatson](image/13.PNG){width=70%}
+
+### Инициализация проекта
+
+```julia
+using DrWatson
+initialize_project("project"; authors="Закиров Нурислам Дамирович", git=false)
+```
+
+Структура каталогов:
+- `scripts/`
+- `data/`
+- `plots/`
+- `notebooks/`
+- `papers/`
+
+![Инициализация проекта DrWatson](image/14.PNG){width=70%}
+
+## Установка пакетов
+
+```julia
+using Pkg
+Pkg.activate(".")
+
+packages = [
+    "DrWatson",
+    "DifferentialEquations",
+    "Plots",
+    "DataFrames",
+    "CSV",
+    "JLD2",
+    "Literate",
+    "IJulia",
+    "BenchmarkTools",
+    "Quarto",
+]
+
+Pkg.add(packages)
+```
+
+![Редактирование add_packages.jl](image/15.PNG){width=70%}
+
+## Запуск скрипта экспоненциального роста
+
+```bash
+julia --project=. scripts/01_exponential_growth.jl
+```
+
+![Запуск скрипта экспоненциального роста](image/18.PNG){width=70%}
+
+# Результаты
+
+## Полученные результаты
+
+::: {.incremental}
+- Настроены git и gh
+- Сгенерированы SSH и GPG ключи
+- Ключи добавлены в GitHub и gitverse
+- Настроена автоматическая подпись коммитов
+- Создан проект DrWatson
+- Установлены пакеты для научных вычислений
+- Выполнен скрипт экспоненциального роста
+:::
+
+## Выводы
+
+::: {.incremental}
+- Приобретены практические навыки работы с Git
+- Настроена авторизация в GitHub через gh
+- Сгенерированы SSH и GPG ключи для безопасной работы
+- Создан проект на Julia с использованием DrWatson
+- Установлены необходимые пакеты для научных вычислений
+:::
+
+# Итоги
+
+## Главный результат
+
+::: {.incremental}
+- Освоена полная настройка рабочего окружения для научных вычислений
+- Готовая инфраструктура для воспроизводимых исследований
+- Навыки работы с современными инструментами разработки
+:::
+
+::: {.center data-background="#f0f0f0"}
+## Спасибо за внимание!
+
+**Закиров Нурислам**
+
+1132236040@rudn.ru
+
+Российский университет дружбы народов
+:::
