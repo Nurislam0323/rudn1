@@ -1,20 +1,20 @@
 using Pkg
-  Pkg.activate(".")
+Pkg.activate(".")
 
-  packages = [
-      "DrWatson",
-      "DifferentialEquations",
-      "Plots",
-      "DataFrames",
-      "CSV",
-      "JLD2",
-      "Literate",
-      "IJulia",
-      "BenchmarkTools",
-      "Quarto",
-  ]
+packages = [
+    "DrWatson",
+    "DifferentialEquations",
+    "Plots",
+    "DataFrames",
+    "CSV",
+    "JLD2",
+    "Literate",
+    "IJulia",
+    "BenchmarkTools",
+    "Quarto",
+]
 
-  println("Установка базовых пакетов...")
-  Pkg.add(packages)
-  println("Все пакеты установлены!")
-  println("Для проверки: using DrWatson, DifferentialEquations, Plots")
+println("Установка базовых пакетов...")
+Pkg.add(packages)
+println("Все пакеты установлены!")
+println("Для проверки: using DrWatson, DifferentialEquations, Plots")
